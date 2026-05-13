@@ -1,0 +1,39 @@
+# Dataset and processed splits — never commit raw data to git
+data/*.csv
+data/*.parquet
+data/*.json
+data/processed/
+
+# Model checkpoints — large binary files
+models/*.pt
+models/*.pth
+models/*.pkl
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Virtual environment
+venv/
+env/
+.env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+results
