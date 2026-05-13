@@ -44,11 +44,11 @@ HAD-Stack/
 ├── requirements.txt        # pip dependencies
 ├── data/
 │   ├── README_data.md      # instructions for placing the dataset
-│   └── fraud_dataset.csv   # place dataset here (see data/README_data.md)
-├── 1_data_prep.py          # leakage audit, feature engineering, train/val/test split
-├── 2_baseline_model.py     # FraudTransformer training (clean data)
-├── 3_robust_model.py       # Hamiltonian-Stackelberg adversarial training
-├── 4_evaluation.py         # full evaluation: clean, evasion, poisoning, t-test
+│  
+├── data_processing.py          # leakage audit, feature engineering, train/val/test split
+├── baseline_model.py     # FraudTransformer training (clean data)
+├── adversarial_game.py       # Hamiltonian-Stackelberg adversarial training
+├── evaluation.py         # full evaluation: clean, evasion, poisoning, t-test
 └── models/                 # checkpoints saved here at runtime
     ├── baseline_best.pt
     └── adversarial_best.pt
