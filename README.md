@@ -145,7 +145,64 @@ torch.manual_seed(42)
 torch.backends.cudnn.deterministic = True
 ```
 
----
+
+Empirical Analysis Scripts
+======================================
+ 
+Four standalone Python scripts that produced the new-additions results
+reported in Section VI of the paper. Each writes its JSON output to
+./evaluation_results/.
+ 
+Files
+-----
+  xgboost_reference.py                 (Section VI-A clean XGBoost row,
+                                        Section VI-D attack transferability)
+  cross_validation_and_bootstrap.py    (Section VI-E and VI-F)
+  sensitivity_analysis.py              (Section VI-H sensitivity)
+  hyperparameter_search.py             (Section VI-H 36-config grid)
+ 
+ 
+Dependencies
+------------
+Python 3.10+ with:
+  numpy
+  pandas
+  scikit-learn
+  torch        (CPU build is enough)
+  xgboost
+  scipy        (only for evaluation.py if you also re-run it)
+ 
+Install:
+  pip install numpy pandas scikit-learn torch xgboost scipy
+ 
+ 
+Files these scripts import from the original codebase
+-----------------------------------------------------
+  data_processing.py            -> writes processed_data/*.npy
+  baseline_model.py             -> TabularTransformer, FocalLoss
+  adversarial_game.py           -> HamiltonianPerturbationBudget,
+                                   HamiltonianAttacker
+  final_hamiltonian_solver.py   -> QuantumHamiltonianSolver, H2Solver,
+                                   Eq29Solver, PARAMS_H1, PARAMS_H2,
+                                   PARAMS_EQ29
+ 
+Saved model checkpoints these scripts read:
+  models/baseline_best.pt       (from baseline_model.py)
+  models/adversarial_best.pt    (from adversarial_game.py)
+ 
+ 
+Run order (full pipeline)
+-------------------------
+  1.  python data_processing.py              # writes processed_data/
+  2.  python baseline_model.py               # trains FraudTransformer
+  3.  python adversarial_game.py             # trains HAD-Stack model
+  4.  python xgboost_reference.py            # this folder
+  5.  python sensitivity_analysis.py         # this folder (solver-only, fast)
+  6.  python hyperparameter_search.py        # this folder (solver-only, fast)
+  7.  python cross_validation_and_bootstrap.py   # this folder (~15 min CPU)
+ 
+Reproducibility: every random seed is fixed to 42 (numpy, torch, sklearn).
+ 
 
 ## Citation
 
